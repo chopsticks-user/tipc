@@ -76,8 +76,8 @@ public:
     line = l;
     column = c;
   }
-  int getLine() { return line; }
-  int getColumn() { return column; }
+  [[nodiscard]] int getLine() const noexcept { return line; }
+  [[nodiscard]] int getColumn() const noexcept { return column; }
 
   friend std::ostream &operator<<(std::ostream &os, const ASTNode &obj) {
     return obj.print(os);

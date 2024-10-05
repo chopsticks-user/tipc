@@ -8,8 +8,8 @@ class ASTNumberExpr : public ASTExpr {
   int VAL;
 
 public:
-  ASTNumberExpr(int VAL) : VAL(VAL) {}
-  int getValue() const { return VAL; }
+  explicit ASTNumberExpr(int VAL) : VAL(VAL) {}
+  [[nodiscard]] int getValue() const noexcept { return VAL; }
   void accept(ASTVisitor *visitor) override;
   llvm::Value *codegen() override;
 

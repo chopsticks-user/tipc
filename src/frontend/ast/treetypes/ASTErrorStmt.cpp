@@ -9,12 +9,9 @@ void ASTErrorStmt::accept(ASTVisitor *visitor) {
 }
 
 std::ostream &ASTErrorStmt::print(std::ostream &out) const {
-  out << "error " << *getArg() << ";";
-  return out;
+  return out << "error " << *getArg() << ";";
 }
 
 std::vector<std::shared_ptr<ASTNode>> ASTErrorStmt::getChildren() {
-  std::vector<std::shared_ptr<ASTNode>> children;
-  children.push_back(ARG);
-  return children;
+  return {ARG};
 }

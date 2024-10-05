@@ -2,10 +2,9 @@
 #include "ASTVisitor.h"
 #include "ASTinternal.h"
 
-ASTProgram::ASTProgram(std::vector<std::shared_ptr<ASTFunction>> FUNCTIONS) {
+ASTProgram::ASTProgram(const std::vector<std::shared_ptr<ASTFunction>>& FUNCTIONS) {
   for (auto &func : FUNCTIONS) {
-    std::shared_ptr<ASTFunction> f = func;
-    this->FUNCTIONS.push_back(f);
+    this->FUNCTIONS.push_back(func);
   }
 }
 
@@ -13,8 +12,8 @@ std::vector<ASTFunction *> ASTProgram::getFunctions() const {
   return rawRefs(FUNCTIONS);
 }
 
-ASTFunction *ASTProgram::findFunctionByName(std::string name) {
-  for (auto fn : getFunctions()) {
+ASTFunction *ASTProgram::findFunctionByName(const std::string &name) const {
+  for (const auto fn : getFunctions()) {
     if (fn->getName() == name) {
       return fn;
     }
@@ -24,7 +23,7 @@ ASTFunction *ASTProgram::findFunctionByName(std::string name) {
 
 void ASTProgram::accept(ASTVisitor *visitor) {
   if (visitor->visit(this)) {
-    for (auto f : getFunctions()) {
+    for (const auto f : getFunctions()) {
       f->accept(visitor);
     }
   }
@@ -32,12 +31,12 @@ void ASTProgram::accept(ASTVisitor *visitor) {
 }
 
 std::ostream &ASTProgram::print(std::ostream &out) const {
-  out << getName();
-  return out;
+  return out << getName();
 } // LCOV_EXCL_LINE
 
 std::vector<std::shared_ptr<ASTNode>> ASTProgram::getChildren() {
   std::vector<std::shared_ptr<ASTNode>> children;
+  children.reserve(FUNCTIONS.size());
   for (auto &function : FUNCTIONS) {
     children.push_back(function);
   }

@@ -2,8 +2,8 @@
 #include "ASTVisitor.h"
 #include "ASTinternal.h"
 
-ASTDeclStmt::ASTDeclStmt(std::vector<std::shared_ptr<ASTDeclNode>> VARS) {
-  for (auto &var : VARS) {
+ASTDeclStmt::ASTDeclStmt(const std::vector<std::shared_ptr<ASTDeclNode>>& VARS) {
+  for (const auto &var : VARS) {
     std::shared_ptr<ASTDeclNode> d = var;
     this->VARS.push_back(d);
   }
@@ -15,7 +15,7 @@ std::vector<ASTDeclNode *> ASTDeclStmt::getVars() const {
 
 void ASTDeclStmt::accept(ASTVisitor *visitor) {
   if (visitor->visit(this)) {
-    for (auto v : getVars()) {
+    for (const auto v : getVars()) {
       v->accept(visitor);
     }
   }
@@ -25,7 +25,7 @@ void ASTDeclStmt::accept(ASTVisitor *visitor) {
 std::ostream &ASTDeclStmt::print(std::ostream &out) const {
   out << "var ";
   bool skip = true;
-  for (auto &id : getVars()) {
+  for (const auto id : getVars()) {
     if (skip) {
       skip = false;
       out << *id;
@@ -33,12 +33,12 @@ std::ostream &ASTDeclStmt::print(std::ostream &out) const {
     }
     out << ", " << *id;
   }
-  out << ";";
-  return out;
+  return out << ";";
 } // LCOV_EXCL_LINE
 
 std::vector<std::shared_ptr<ASTNode>> ASTDeclStmt::getChildren() {
   std::vector<std::shared_ptr<ASTNode>> children;
+  children.reserve(VARS.size());
   for (auto &var : VARS) {
     children.push_back(var);
   }

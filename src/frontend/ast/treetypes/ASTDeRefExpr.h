@@ -9,8 +9,8 @@ class ASTDeRefExpr : public ASTExpr {
 
 public:
   std::vector<std::shared_ptr<ASTNode>> getChildren() override;
-  ASTDeRefExpr(std::shared_ptr<ASTExpr> PTR) : PTR(PTR) {}
-  ASTExpr *getPtr() const { return PTR.get(); }
+  explicit ASTDeRefExpr(std::shared_ptr<ASTExpr> PTR) : PTR(std::move(PTR)) {}
+  [[nodiscard]] ASTExpr *getPtr() const noexcept { return PTR.get(); }
   void accept(ASTVisitor *visitor) override;
   llvm::Value *codegen() override;
 

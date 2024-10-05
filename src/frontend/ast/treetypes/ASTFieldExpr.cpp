@@ -9,12 +9,9 @@ void ASTFieldExpr::accept(ASTVisitor *visitor) {
 }
 
 std::ostream &ASTFieldExpr::print(std::ostream &out) const {
-  out << getField() << ":" << *getInitializer();
-  return out;
+  return out << getField() << ":" << *getInitializer();
 } // LCOV_EXCL_LINE
 
 std::vector<std::shared_ptr<ASTNode>> ASTFieldExpr::getChildren() {
-  std::vector<std::shared_ptr<ASTNode>> children;
-  children.push_back(INIT);
-  return children;
+  return {INIT};
 }

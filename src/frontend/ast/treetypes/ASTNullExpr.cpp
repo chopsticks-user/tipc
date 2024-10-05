@@ -7,6 +7,5 @@ void ASTNullExpr::accept(ASTVisitor *visitor) {
 }
 
 std::ostream &ASTNullExpr::print(std::ostream &out) const {
-  out << "null";
-  return out;
+  return out << "null";
 }

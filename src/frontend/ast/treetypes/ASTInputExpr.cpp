@@ -7,6 +7,5 @@ void ASTInputExpr::accept(ASTVisitor *visitor) {
 }
 
 std::ostream &ASTInputExpr::print(std::ostream &out) const {
-  out << "input";
-  return out;
+  return out << "input";
 }

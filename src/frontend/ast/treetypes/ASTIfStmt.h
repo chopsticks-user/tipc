@@ -1,5 +1,7 @@
 #pragma once
 
+#include <utility>
+
 #include "ASTExpr.h"
 #include "ASTStmt.h"
 
@@ -13,14 +15,14 @@ public:
   std::vector<std::shared_ptr<ASTNode>> getChildren() override;
   ASTIfStmt(std::shared_ptr<ASTExpr> COND, std::shared_ptr<ASTStmt> THEN,
             std::shared_ptr<ASTStmt> ELSE)
-      : COND(COND), THEN(THEN), ELSE(ELSE) {}
-  ASTExpr *getCondition() const { return COND.get(); }
-  ASTStmt *getThen() const { return THEN.get(); }
+      : COND(std::move(COND)), THEN(std::move(THEN)), ELSE(std::move(ELSE)) {}
+  [[nodiscard]] ASTExpr *getCondition() const noexcept { return COND.get(); }
+  [[nodiscard]] ASTStmt *getThen() const { return THEN.get(); }
 
   /*! \fn getElse
    * \return Else statement if it exists and nullptr otherwise.
    */
-  ASTStmt *getElse() const { return ELSE.get(); }
+  [[nodiscard]] ASTStmt *getElse() const noexcept { return ELSE.get(); }
   void accept(ASTVisitor *visitor) override;
   llvm::Value *codegen() override;
 

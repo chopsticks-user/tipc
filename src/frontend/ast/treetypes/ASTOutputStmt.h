@@ -1,5 +1,7 @@
 #pragma once
 
+#include <utility>
+
 #include "ASTExpr.h"
 #include "ASTStmt.h"
 
@@ -10,8 +12,8 @@ class ASTOutputStmt : public ASTStmt {
 
 public:
   std::vector<std::shared_ptr<ASTNode>> getChildren() override;
-  ASTOutputStmt(std::shared_ptr<ASTExpr> ARG) : ARG(ARG) {}
-  ASTExpr *getArg() const { return ARG.get(); }
+  explicit ASTOutputStmt(std::shared_ptr<ASTExpr> ARG) : ARG(std::move(ARG)) {}
+  [[nodiscard]] ASTExpr *getArg() const noexcept { return ARG.get(); }
   void accept(ASTVisitor *visitor) override;
   llvm::Value *codegen() override;
 

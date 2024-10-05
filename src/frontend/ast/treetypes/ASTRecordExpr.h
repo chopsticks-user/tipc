@@ -10,8 +10,8 @@ class ASTRecordExpr : public ASTExpr {
 
 public:
   std::vector<std::shared_ptr<ASTNode>> getChildren() override;
-  ASTRecordExpr(std::vector<std::shared_ptr<ASTFieldExpr>> FIELDS);
-  std::vector<ASTFieldExpr *> getFields() const;
+  explicit ASTRecordExpr(const std::vector<std::shared_ptr<ASTFieldExpr>>& FIELDS);
+  [[nodiscard]] std::vector<ASTFieldExpr *> getFields() const;
   void accept(ASTVisitor *visitor) override;
   llvm::Value *codegen() override;
 

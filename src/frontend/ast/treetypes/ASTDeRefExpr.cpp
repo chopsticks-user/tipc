@@ -9,12 +9,9 @@ void ASTDeRefExpr::accept(ASTVisitor *visitor) {
 }
 
 std::ostream &ASTDeRefExpr::print(std::ostream &out) const {
-  out << "(*" << *getPtr() << ")";
-  return out;
+  return out << "(*" << *getPtr() << ")";
 }
 
 std::vector<std::shared_ptr<ASTNode>> ASTDeRefExpr::getChildren() {
-  std::vector<std::shared_ptr<ASTNode>> children;
-  children.push_back(PTR);
-  return children;
+  return {PTR};
 }

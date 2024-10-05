@@ -14,11 +14,11 @@ class ASTProgram : public ASTNode {
 
 public:
   std::vector<std::shared_ptr<ASTNode>> getChildren() override;
-  ASTProgram(std::vector<std::shared_ptr<ASTFunction>> FUNCTIONS);
-  void setName(std::string n) { name = n; }
-  std::string getName() const { return name; }
-  std::vector<ASTFunction *> getFunctions() const;
-  ASTFunction *findFunctionByName(std::string);
+  explicit ASTProgram(const std::vector<std::shared_ptr<ASTFunction>>& FUNCTIONS);
+  void setName(std::string n) { name = std::move(n); }
+  [[nodiscard]] std::string getName() const { return name; }
+  [[nodiscard]] std::vector<ASTFunction *> getFunctions() const;
+  ASTFunction *findFunctionByName(const std::string &) const;
   void accept(ASTVisitor *visitor) override;
   std::shared_ptr<llvm::Module> codegen(SemanticAnalysis *st, const std::string& name);
 

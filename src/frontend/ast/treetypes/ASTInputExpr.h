@@ -6,7 +6,7 @@
  */
 class ASTInputExpr : public ASTExpr {
 public:
-  ASTInputExpr() {}
+  ASTInputExpr() = default;
   void accept(ASTVisitor *visitor) override;
   llvm::Value *codegen() override;
 

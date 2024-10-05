@@ -15,8 +15,5 @@ std::ostream &ASTWhileStmt::print(std::ostream &out) const {
 }
 
 std::vector<std::shared_ptr<ASTNode>> ASTWhileStmt::getChildren() {
-  std::vector<std::shared_ptr<ASTNode>> children;
-  children.push_back(COND);
-  children.push_back(BODY);
-  return children;
+  return {COND, BODY};
 }

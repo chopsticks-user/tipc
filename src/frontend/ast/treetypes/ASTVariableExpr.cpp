@@ -7,6 +7,5 @@ void ASTVariableExpr::accept(ASTVisitor *visitor) {
 }
 
 std::ostream &ASTVariableExpr::print(std::ostream &out) const {
-  out << getName();
-  return out;
+  return out << getName();
 } // LCOV_EXCL_LINE

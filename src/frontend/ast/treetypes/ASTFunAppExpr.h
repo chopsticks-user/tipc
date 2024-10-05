@@ -11,9 +11,9 @@ class ASTFunAppExpr : public ASTExpr {
 public:
   std::vector<std::shared_ptr<ASTNode>> getChildren() override;
   ASTFunAppExpr(std::shared_ptr<ASTExpr> FUN,
-                std::vector<std::shared_ptr<ASTExpr>> ACTUALS);
-  ASTExpr *getFunction() const { return FUN.get(); }
-  std::vector<ASTExpr *> getActuals() const;
+                const std::vector<std::shared_ptr<ASTExpr>>& ACTUALS);
+  [[nodiscard]] ASTExpr *getFunction() const noexcept { return FUN.get(); }
+  [[nodiscard]] std::vector<ASTExpr *> getActuals() const;
   void accept(ASTVisitor *visitor) override;
   llvm::Value *codegen() override;
 

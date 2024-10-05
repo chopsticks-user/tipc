@@ -10,8 +10,8 @@ class ASTErrorStmt : public ASTStmt {
 
 public:
   std::vector<std::shared_ptr<ASTNode>> getChildren() override;
-  ASTErrorStmt(std::shared_ptr<ASTExpr> ARG) : ARG(ARG) {}
-  ASTExpr *getArg() const { return ARG.get(); }
+  explicit ASTErrorStmt(std::shared_ptr<ASTExpr> ARG) : ARG(std::move(ARG)) {}
+  [[nodiscard]] ASTExpr *getArg() const noexcept { return ARG.get(); }
   void accept(ASTVisitor *visitor) override;
   llvm::Value *codegen() override;
 

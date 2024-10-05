@@ -10,13 +10,9 @@ void ASTBinaryExpr::accept(ASTVisitor *visitor) {
 }
 
 std::ostream &ASTBinaryExpr::print(std::ostream &out) const {
-  out << "(" << *getLeft() << getOp() << *getRight() << ")";
-  return out;
+  return out << "(" << *getLeft() << getOp() << *getRight() << ")";
 } // LCOV_EXCL_LINE
 
 std::vector<std::shared_ptr<ASTNode>> ASTBinaryExpr::getChildren() {
-  std::vector<std::shared_ptr<ASTNode>> children;
-  children.push_back(LEFT);
-  children.push_back(RIGHT);
-  return children;
+  return {LEFT, RIGHT};
 }

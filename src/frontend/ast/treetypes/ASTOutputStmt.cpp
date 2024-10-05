@@ -9,12 +9,9 @@ void ASTOutputStmt::accept(ASTVisitor *visitor) {
 }
 
 std::ostream &ASTOutputStmt::print(std::ostream &out) const {
-  out << "output " << *getArg() << ";";
-  return out;
+  return out << "output " << *getArg() << ";";
 }
 
 std::vector<std::shared_ptr<ASTNode>> ASTOutputStmt::getChildren() {
-  std::vector<std::shared_ptr<ASTNode>> children;
-  children.push_back(ARG);
-  return children;
+  return {ARG};
 }

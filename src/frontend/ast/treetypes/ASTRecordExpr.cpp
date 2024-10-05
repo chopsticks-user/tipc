@@ -3,10 +3,9 @@
 #include "ASTinternal.h"
 
 ASTRecordExpr::ASTRecordExpr(
-    std::vector<std::shared_ptr<ASTFieldExpr>> FIELDS) {
-  for (auto &field : FIELDS) {
-    std::shared_ptr<ASTFieldExpr> f = field;
-    this->FIELDS.push_back(f);
+    const std::vector<std::shared_ptr<ASTFieldExpr>>& FIELDS) {
+  for (const auto &field : FIELDS) {
+    this->FIELDS.push_back(field);
   }
 }
 
@@ -16,7 +15,7 @@ std::vector<ASTFieldExpr *> ASTRecordExpr::getFields() const {
 
 void ASTRecordExpr::accept(ASTVisitor *visitor) {
   if (visitor->visit(this)) {
-    for (auto f : getFields()) {
+    for (const auto f : getFields()) {
       f->accept(visitor);
     }
   }
@@ -26,7 +25,7 @@ void ASTRecordExpr::accept(ASTVisitor *visitor) {
 std::ostream &ASTRecordExpr::print(std::ostream &out) const {
   out << "{";
   bool skip = true;
-  for (auto &f : getFields()) {
+  for (const auto &f : getFields()) {
     if (skip) {
       skip = false;
       out << *f;
@@ -34,12 +33,12 @@ std::ostream &ASTRecordExpr::print(std::ostream &out) const {
     }
     out << "," << *f;
   }
-  out << "}";
-  return out;
+  return out << "}";
 } // LCOV_EXCL_LINE
 
 std::vector<std::shared_ptr<ASTNode>> ASTRecordExpr::getChildren() {
   std::vector<std::shared_ptr<ASTNode>> children;
+  children.reserve(FIELDS.size());
   for (auto &field : FIELDS) {
     children.push_back(field);
   }

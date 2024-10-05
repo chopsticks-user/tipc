@@ -9,8 +9,8 @@ class ASTBlockStmt : public ASTStmt {
 
 public:
   std::vector<std::shared_ptr<ASTNode>> getChildren() override;
-  ASTBlockStmt(std::vector<std::shared_ptr<ASTStmt>> STMTS);
-  std::vector<ASTStmt *> getStmts() const;
+  explicit ASTBlockStmt(const std::vector<std::shared_ptr<ASTStmt>>& STMTS);
+  [[nodiscard]] std::vector<ASTStmt *> getStmts() const;
   void accept(ASTVisitor *visitor) override;
   llvm::Value *codegen() override;
 

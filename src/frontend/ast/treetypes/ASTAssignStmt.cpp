@@ -10,13 +10,9 @@ void ASTAssignStmt::accept(ASTVisitor *visitor) {
 }
 
 std::ostream &ASTAssignStmt::print(std::ostream &out) const {
-  out << *getLHS() << " = " << *getRHS() << ";";
-  return out;
+  return out << *getLHS() << " = " << *getRHS() << ";";
 }
 
 std::vector<std::shared_ptr<ASTNode>> ASTAssignStmt::getChildren() {
-  std::vector<std::shared_ptr<ASTNode>> children;
-  children.push_back(LHS);
-  children.push_back(RHS);
-  return children;
+  return {LHS, RHS};
 }

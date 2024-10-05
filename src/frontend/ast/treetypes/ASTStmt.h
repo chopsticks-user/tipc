@@ -6,6 +6,6 @@
  */
 class ASTStmt : public ASTNode {
 public:
-  ~ASTStmt() = default;
+  ~ASTStmt() override = default;
   // delegating the obligation to override the accept, codegen and print
 };

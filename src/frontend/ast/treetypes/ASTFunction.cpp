@@ -40,12 +40,12 @@ std::ostream &ASTFunction::print(std::ostream &out) const {
     }
     out << "," << *p;
   }
-  out << ") {...}";
-  return out;
+  return out << ") {...}";
 } // LCOV_EXCL_LINE
 
 std::vector<std::shared_ptr<ASTNode>> ASTFunction::getChildren() {
   std::vector<std::shared_ptr<ASTNode>> children;
+  children.reserve(FORMALS.size() + DECLS.size() + BODY.size() + 1);
 
   children.push_back(DECL);
   for (auto &formal : FORMALS) {

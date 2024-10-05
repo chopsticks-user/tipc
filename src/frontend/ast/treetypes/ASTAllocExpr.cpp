@@ -9,12 +9,9 @@ void ASTAllocExpr::accept(ASTVisitor *visitor) {
 }
 
 std::ostream &ASTAllocExpr::print(std::ostream &out) const {
-  out << "alloc " << *getInitializer();
-  return out;
+  return out << "alloc " << *getInitializer();
 }
 
 std::vector<std::shared_ptr<ASTNode>> ASTAllocExpr::getChildren() {
-  std::vector<std::shared_ptr<ASTNode>> children;
-  children.push_back(INIT);
-  return children;
+  return {INIT};
 }

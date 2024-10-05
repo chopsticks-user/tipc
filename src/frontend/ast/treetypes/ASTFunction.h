@@ -1,5 +1,7 @@
 #pragma once
 
+#include <utility>
+
 #include "ASTDeclNode.h"
 #include "ASTDeclStmt.h"
 #include "ASTNode.h"
@@ -21,15 +23,15 @@ public:
               std::vector<std::shared_ptr<ASTDeclNode>> FORMALS,
               const std::vector<std::shared_ptr<ASTDeclStmt>> &DECLS,
               std::vector<std::shared_ptr<ASTStmt>> BODY, bool ISPOLY)
-      : DECL(DECL), FORMALS(FORMALS), DECLS(DECLS), BODY(BODY), ISPOLY(ISPOLY) {
+      : DECL(std::move(DECL)), FORMALS(std::move(FORMALS)), DECLS(DECLS), BODY(std::move(BODY)), ISPOLY(ISPOLY) {
   }
-  ~ASTFunction() = default;
-  ASTDeclNode *getDecl() const { return DECL.get(); };
-  std::string getName() const { return DECL->getName(); };
-  bool isPoly() const { return ISPOLY; };
-  std::vector<ASTDeclNode *> getFormals() const;
-  std::vector<ASTDeclStmt *> getDeclarations() const;
-  std::vector<ASTStmt *> getStmts() const;
+
+  [[nodiscard]] ASTDeclNode *getDecl() const noexcept { return DECL.get(); };
+  [[nodiscard]] std::string getName() const { return DECL->getName(); };
+  [[nodiscard]] bool isPoly() const noexcept { return ISPOLY; };
+  [[nodiscard]] std::vector<ASTDeclNode *> getFormals() const;
+  [[nodiscard]] std::vector<ASTDeclStmt *> getDeclarations() const;
+  [[nodiscard]] std::vector<ASTStmt *> getStmts() const;
   void accept(ASTVisitor *visitor) override;
   llvm::Value *codegen() override;
 

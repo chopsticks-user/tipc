@@ -6,6 +6,6 @@
  */
 class ASTExpr : public ASTNode {
 public:
-  ~ASTExpr() = default;
+  ~ASTExpr() override = default;
   // delegating the obligation to override accept, codegen, and print
 };
