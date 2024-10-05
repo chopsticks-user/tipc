@@ -45,3 +45,4 @@ target_link_libraries(
           test_helpers
           coverage_config
           Catch2::Catch2WithMain)
+add_test(typeinference_unit_tests typeinference_unit_tests)

@@ -23,3 +23,4 @@ target_link_libraries(
           test_helpers
           coverage_config
           Catch2::Catch2WithMain)
+add_test(codegen_unit_tests codegen_unit_tests)

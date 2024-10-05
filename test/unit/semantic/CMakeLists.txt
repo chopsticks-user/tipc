@@ -33,3 +33,4 @@ target_link_libraries(
           cfa
           coverage_config
           Catch2::Catch2WithMain)
+add_test(semantic_unit_tests semantic_unit_tests)

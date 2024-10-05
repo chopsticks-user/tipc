@@ -34,3 +34,4 @@ target_link_libraries(
           test_helpers
           coverage_config
           Catch2::Catch2WithMain)
+add_test(frontend_unit_tests frontend_unit_tests)

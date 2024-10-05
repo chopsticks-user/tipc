@@ -30,3 +30,4 @@ target_link_libraries(
           coverage_config
           cfa
           Catch2::Catch2WithMain)
+add_test(call_graph_unit_tests call_graph_unit_tests)
